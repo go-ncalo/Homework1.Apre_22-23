@@ -160,8 +160,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn import metrics
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-
 num_feat = [5, 10, 40, 100, 250, 700]
 test_acc = []
 train_acc = []
@@ -174,8 +172,8 @@ y = df['class']
 
 for i in num_feat:
     X_new = SelectKBest(mutual_info_classif, k=i).fit_transform(X, y)
-    X_train, X_test, y_train, y_test = train_test_split(X_new, y, train_size = 0.7,random_state = 1)
-    classifier = DecisionTreeClassifier()
+    X_train, X_test, y_train, y_test = train_test_split(X_new, y, train_size = 0.7, stratify = y,random_state = 1)
+    classifier = DecisionTreeClassifier(random_state=1)
     classifier = classifier.fit(X_train, y_train)
 
     pred = classifier.predict(X_test)
@@ -184,8 +182,8 @@ for i in num_feat:
 
 fig, ax = plt.subplots()
 
-ax.plot(num_feat, test_acc, marker='o', label='Testing accuracy')
-ax.plot(num_feat, train_acc, marker='o', label='Training accuracy')
+ax.plot(num_feat, test_acc, label='Testing accuracy', marker='o')
+ax.plot(num_feat, train_acc, label='Training accuracy', marker='o')
 ax.set_xlabel("Number of Features")
 ax.set_ylabel("Accuracy")
 ax.legend()
