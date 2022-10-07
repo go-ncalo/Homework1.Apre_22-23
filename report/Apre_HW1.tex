@@ -93,19 +93,34 @@ under a maximum depth of 1:
         \draw (A) -- (B) node [left,pos=0.25] {A}(A);
     \draw (A) -- (C) node [right,pos=0.25] {B}(A);
 \end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}[
+box/.style={draw,rectangle,minimum size=1.5cm,text width=1cm,align=center}]
+\matrix (conmat) [row sep=0cm,column sep=0cm] {
+\node (tpos) [box,
+    label=left:\( \mathbf{P} \),
+    label=above:\( \mathbf{P} \),
+    ] {5};
+&
+\node (fneg) [box,
+    label=above:\textbf{N}] {6};
+\\
+\node (fpos) [box,
+    label=left:\( \mathbf{N} \)] {2};
+&
+\node (tneg) [box] {7};
+\\
+};
+\node [left=.05cm of conmat,text width=1.5cm,align=right] {\textbf{actual \\ value}};
+\node [above=.05cm of conmat] {\textbf{prediction outcome}};
+\end{tikzpicture}
 \end{center}
 \begin{math}
-F1 = 2 \ *\ \frac{Precision\ * \ Recall}{Precision\ + \ Recall}
-\ \ \ Precision = \frac{\#T_{positives}}{\#T_{positives}\  + \ \#F_{positives}}
-\ \ \ Recall = \frac{\#T_{positives}}{\#T_{positives}\  + \ \#F_{negatives}}
+\newline
+F1 = \frac{TP}{TP\ + \ \frac{1}{2}(FP \ + \ FN)}
 \newline
 \newline
-Precision_N=\frac{7}{7\ +\ 6} = \frac{7}{13} \ \ \ Recall_N = \frac{7}{7\ +\ 2} = \frac{7}{9} \ \ \ 
-F1_N = \frac{\frac{7}{13} \ *\ \frac{7}{9}}{\frac{7}{13} \ +\ \frac{7}{9}} = \frac{7}{11}
-\newline
-\newline
-Precision_P=\frac{5}{5\ +\ 2} = \frac{5}{7} \ \ \ Recall_P = \frac{5}{5\ +\ 6} = \frac{5}{11} \ \ \ 
-F1_P = \frac{\frac{5}{7} \ *\ \frac{5}{11}}{\frac{5}{7} \ +\ \frac{5}{11}} = \frac{5}{9}
+F1 = \frac{5}{5 \ + \ \frac{1}{2}(2 \ + \ 6)} = \frac{5}{9}
 \end{math}
 \item
 One reason why the left tree path was not further decomposed is because in the data set, 
